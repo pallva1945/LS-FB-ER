@@ -1,19 +1,23 @@
 import React from 'react';
 import { View } from '../types';
-import { LayoutDashboard, TrendingUp, Target, MessageSquareText, Shield } from 'lucide-react';
+import { LayoutDashboard, TrendingUp, Target, MessageSquareText, Sun, Moon } from 'lucide-react';
 
 interface SidebarProps {
   currentView: View;
   setCurrentView: (view: View) => void;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView }) => {
+const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView, isDarkMode, toggleDarkMode }) => {
   const menuItems = [
     { id: View.DASHBOARD, label: 'Overview', icon: LayoutDashboard },
     { id: View.FINANCIALS, label: 'Financials & Cap Table', icon: TrendingUp },
     { id: View.STRATEGY, label: 'NBA Europe Strategy', icon: Target },
     { id: View.ASSISTANT, label: 'Strategic Advisor', icon: MessageSquareText },
   ];
+
+  const ThemeIcon = isDarkMode ? Sun : Moon;
 
   return (
     <div className="w-64 bg-varese-dark text-white h-screen fixed left-0 top-0 flex flex-col shadow-xl z-50">
@@ -35,6 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView }) => {
             <button
               key={item.id}
               onClick={() => setCurrentView(item.id)}
+              aria-current={isActive ? 'page' : undefined}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 isActive 
                   ? 'bg-varese-red text-white shadow-lg' 
@@ -49,6 +54,17 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setCurrentView }) => {
       </nav>
 
       <div className="p-6 border-t border-gray-700">
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={toggleDarkMode}
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="w-full flex items-center space-x-3 px-4 py-3 mb-4 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors duration-200"
+        >
+          <ThemeIcon size={20} />
+          <span className="font-medium">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+        </button>
+
+        {/* User Profile */}
         <div className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-xs">LS</div>
             <div className="flex-1">

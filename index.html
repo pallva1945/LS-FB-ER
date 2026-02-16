@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class', // Enable dark mode based on 'dark' class on HTML tag
         theme: {
           extend: {
             fontFamily: {
@@ -19,7 +20,8 @@
                 darkRed: '#B0122A',
                 white: '#FFFFFF',
                 slate: '#F1F5F9',
-                dark: '#0F172A'
+                dark: '#0F172A',
+                darker: '#1E293B', // New darker shade for backgrounds
               }
             }
           }
@@ -28,7 +30,10 @@
     </script>
     <style>
       body {
-        background-color: #F8FAFC;
+        background-color: #F8FAFC; /* Light mode default */
+      }
+      .dark body {
+        background-color: #1E293B; /* Dark mode default */
       }
     </style>
   <script type="importmap">
